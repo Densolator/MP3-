@@ -41,5 +41,5 @@ urlpatterns = [
     # /logout/
     url(r'^logout/', views.logout_user, name='logout', ), #updated
 
-    url(r'^createpost/', views.createPost.as_view(), name='createpost', ),
+    url(r'^createpost/', views.createPost.as_view(success_url = "/"), name='createpost', ),
 ]

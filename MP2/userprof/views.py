@@ -3,13 +3,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import User
 from .models import Post
 from .models import profile
+from .models import Offers
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import views as auth_views
 from .forms import RegisterForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 #updated
 def index(request):
@@ -67,13 +69,23 @@ def logout_user(request):
     logout(request)
 
     return render(request, 'homepage/logoutpage.html')
-class createPost(generic.CreateView):
+class createPost(CreateView):
     model = Post
     fields = ['item_name', 'thumbnail', 'quantity', 'post_condition', 'post_type', 'tags']
 
     def form_valid(self, form):
         form.instance.op = self.request.user
         return super(createPost,self).form_valid(form)
+
+class createOffer(CreateView):
+    model = Offers
+    fields = ['ifPurchase', 'amount', 'item',]
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super(createOffer, self).form_valid(form)
+
+
 
 
 #update
