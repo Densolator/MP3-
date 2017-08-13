@@ -1,0 +1,86 @@
+body {
+    background: white url("images/techkonceptbackground1-1.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+a, p, h3{
+    letter-spacing: 2px;
+}
+
+/*updated*/
+.post_section {
+    display: flex;
+    flex-wrap:wrap;
+	width: 100%;
+    padding: 5px;
+    height: auto;
+}
+/*updated*/
+.user_post {
+    width: 25%;
+    margin: 3%;
+    height: inherit
+
+}
+/*updated*/
+.user_post:nth-child(3n + 1) {
+    float: left;
+}
+/*updated*/
+.user_post:nth-child(3n + 0) {
+    float: right;
+}
+/*updated*/
+.userdet {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 0;
+    padding: 5px;
+    background-color:#aec5f9;
+}
+/*updated*/
+.userHead {
+    margin: 3%;
+}
+/*updated*/
+.item_name, .userHead{
+    background-color: #162070;
+}
+/*updated*/
+.item_name p , .userHead h3{
+    display: block;
+    color: snow;
+    padding: 5px;
+    text-align: center;
+}
+
+.item {
+
+    background-color:#aec5f9;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 70%;
+}
+/*updated*/
+.item_info,  .item_info a{
+    color: black;
+    padding: 5px;
+}
+
+}
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+#userlog .form-group {
+    margin: 5px;
+}
+/*delete*/
+.breadcrumb {
+    background-color: black;
+    opacity: 0.8;
+}

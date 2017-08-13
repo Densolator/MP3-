@@ -1,0 +1,15 @@
+{% extends 'homepage/skeleton.html' %}
+{% block title %} Users {% endblock %}
+{% block pageno %} hidden {% endblock %}
+
+
+{% block body %}
+    <h1>This is the Users page</h1>
+    {% if log_user.is_authenticated  %}
+        <p><strong>wat???</strong></p>
+    {% endif %}
+        {% for user in all_u %}
+            <a href ="{% url 'user' user.id %}">{{user.username}}</a></br>
+        {% endfor %}
+    <a href="/" class="retAnchor">Back To Home Page</a>
+{% endblock %}
