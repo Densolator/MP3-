@@ -34,7 +34,7 @@ class Post(models.Model):
     )
     post_type = models.CharField(max_length = 20, choices = POST_TYPE_CHOICES, default = 'Academic')
     POST_CONDITION_CHOICES = (
-        ('USED', 'Used'),
+        ('Used', 'Used'),
         ('Brand New', 'Brand New'),
     )
     post_condition = models.CharField(max_length = 20, choices = POST_CONDITION_CHOICES, default = 'BNEW')

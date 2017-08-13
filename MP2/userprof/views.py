@@ -141,7 +141,9 @@ def allPaginate(request, obj, page_num):
 def allQuery(request, query, all_post):
     all_post = all_post.filter(
             Q(item_name__icontains=query) |
-            Q(tags__name__icontains=query)
+            Q(tags__name__icontains=query) |
+            Q(post_type__icontains=query) |
+            Q(post_condition__icontains=query)
         ).distinct()
     return all_post
 

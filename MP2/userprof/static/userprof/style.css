@@ -18,11 +18,9 @@ a, p, h3{
     height: auto;
 }
 /*updated*/
-.user_post, .item_offer {
-    width: 30%;
-    margin: 0 auto; 
-    margin-top: 3%; 
-    margin-bottom: 3%
+.user_post {
+    width: 25%;
+    margin: 3%;
     height: inherit
 
 }
@@ -47,11 +45,11 @@ a, p, h3{
     margin: 3%;
 }
 /*updated*/
-.item_name, .userHead, .offer_head{
+.item_name, .userHead{
     background-color: #162070;
 }
 /*updated*/
-.item_name p , .userHead h3, .offer_head p{
+.item_name p , .userHead h3{
     display: block;
     color: snow;
     padding: 5px;
@@ -80,4 +78,9 @@ img {
 }
 #userlog .form-group {
     margin: 5px;
+}
+/*delete*/
+.breadcrumb {
+    background-color: black;
+    opacity: 0.8;
 }
