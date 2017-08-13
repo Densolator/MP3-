@@ -69,7 +69,11 @@ def logout_user(request):
     return render(request, 'homepage/logoutpage.html')
 class createPost(generic.CreateView):
     model = Post
-    fields = ['op','item_name', 'quantity', 'post_condition', 'post_type', 'tags']
+    fields = ['item_name', 'thumbnail', 'quantity', 'post_condition', 'post_type', 'tags']
+
+    def form_valid(self, form):
+        form.instance.op = self.request.user
+        return super(createPost,self).form_valid(form)
 
 
 #update

@@ -27,7 +27,7 @@ class Post(models.Model):
     op = models.ForeignKey(User, on_delete=models.CASCADE,)
     item_name = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
-    thumbnail = models.CharField(max_length=200)
+    thumbnail = models.FileField()
     POST_TYPE_CHOICES=(
         ('Academic', 'Academic'),
         ('Non-Academic', 'Non-Academic'),

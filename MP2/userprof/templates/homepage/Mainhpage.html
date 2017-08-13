@@ -19,7 +19,7 @@
             <div class="item">
                 <div class="thumbnail">
                     <!--                     updated-->
-                    <a href="{% url 'postdet' post.id %}" ><img src="{{post.thumbnail}}" style="width: 100%; height: 100%"></a>
+                    <a href="{% url 'postdet' post.id %}" ><img src="{{post.thumbnail.url}}" style="width: 100%; height: 100%"></a>
                 <!--                     updated-->
                 </div>
                 <div class="item_info">
@@ -30,12 +30,12 @@
                         {% for tag in post.tags.all %}
                         <a href="{% url 'searchTg' tag.name %}">{{tag.name}}</a>
                         {% endfor %}
-                    </p>               
+                    </p>
 <!--                     updated-->
                 </div>
             </div>
         </div>
-        
+
     {% endfor %}
 </section>
 {% include 'homepage/pagination.html' with page=posts %}
