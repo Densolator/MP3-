@@ -53,5 +53,10 @@ urlpatterns = [
     #/post/[postid]/editoffer/purchase/[offers-id]
     url(r'^post/(?P<post_num>[0-9]+)/editoffer/trade/(?P<offers_id>[0-9]+)$',views.editTradeOffer.as_view(success_url = "/"), name='edittrade'),
 
-    url(r'^post/(?P<post_num>[0-9]+)/deleteoffer/(?P<offers_id>[0-9]+)$',views.deleteOffer.as_view(success_url = "/"), name='deleteoffer'),
+    url(r'^post/offer/(?P<offers_id>[0-9]+)/accept$',views.acceptOffer, name='acceptoffer'),
+    url(r'^post/offer/(?P<offers_id>[0-9]+)/delete$',views.deleteOffer, name='deleteoffer'),
+
+
+
+
 ]

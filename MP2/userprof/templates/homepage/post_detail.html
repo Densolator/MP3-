@@ -57,7 +57,7 @@
             </a>
           {% else %}
             <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#vendor1">
-                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong> {{ offer.user }} {{offer.item}}</div>
+                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong> {{ offer.user }} offers {{offer.item}}</div>
             </a>
           {% endif %}
         {% endfor %}
@@ -78,7 +78,6 @@
                     </div>
                     <div class="modal-body">
                         <p><strong>Offer by: </strong>{{offer.user}}</p>
-                        <p><strong>ifpurchase: </strong>{{offer.amount}}</p>
                         <p><strong>iftrade: </strong>{{offer.item}}</p>
                     </div>
                     <div class="modal-footer">

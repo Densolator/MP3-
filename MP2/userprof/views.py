@@ -171,6 +171,19 @@ class editTradeOffer(UpdateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+def acceptOffer(request, offers_id):
+    offer = Offers.objects.get(pk = offers_id)
+    offer.confirmed = True
+    offer.reason = request.POST.get('offertext', None)
+    offer.save()
+    return redirect('index')
+
+def declineOffer(request, offers_id):
+    offer = Offers.objects.get(pk = offers_id)
+    offer.confirmed = False
+    offer.reason = request.POST.get('offertext', None)
+    offer.save()
+    return redirect('index')
 
 
 #update

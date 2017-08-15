@@ -52,4 +52,4 @@ class Offers(models.Model):
     amount = models.PositiveIntegerField(default = 0)
     item = models.ForeignKey(Post, on_delete=models.CASCADE, related_name = 'offered_item', null=True, blank=True)
     confirmed = models.BooleanField(default = False)
-    reason = models.CharField(max_length = 500, blank=True)
+    reason = models.CharField(max_length = 500, blank=True, null = True)
