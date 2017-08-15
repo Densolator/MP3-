@@ -210,7 +210,7 @@ def post_detail(request, post_num):
 
     sPost = get_object_or_404(Post,id=post_num)
     if request.user.is_authenticated():
-        return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition), 'offers': Offers.objects.filter(post__op=request.user).order_by('-id'), 'poffers': Offers.objects.filter(post__id=post_num, user__id=request.user.id).order_by('-id')})
+        return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition), 'offers': Offers.objects.filter(post__op=request.user).order_by('-id'), 'poffers': Offers.objects.filter(Q(post__id=post_num) | Q(post__id=post_num, user__id=request.user.id)).order_by('-id')})
     else:
         return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition)})
 

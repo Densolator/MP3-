@@ -15,7 +15,7 @@
             </div>
             <div class="item_info">
 
-                <p><strong>Vendor:</strong> <a href ="{% url 'user' post.op.id %}">{{post.op.username}}</a>
+                <p><strong>Vendor:</strong> <a href ="{% url 'user' post.op.id %}">{{post.op.first_name}}</a>
                 <p><strong>Quantity:</strong> {{post.quantity}}</p>
                 <p><strong>Condition:</strong> <a href="{% url 'searchC' post_condition %}">{{post.post_condition}}</a></p>
                 <p><strong>Type:</strong> <a href="{% url 'searchTy' post.post_type %}">{{post.post_type}}</a></p>
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-
+    {% if log_user.is_authenticated %}
     <div class="item_offer" >
         <div class="offer_head" >
             <p>Offers</p>
@@ -52,36 +52,36 @@
  <!--        loop for all offers in this post-->
         {% for offer in poffers %}
           {% if offer.ifPurchase %}
-            <a href ="#" style="text-decoration: none; color: black">
-                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong>{{ offer.user }}</div>
+            <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#vendor{{offer.id}}">
+                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong>{{ offer.user.first_name }}</div>
             </a>
           {% else %}
-            <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#vendor1">
-                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong> {{ offer.user }} offers {{offer.item}}</div>
+            <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#tvendor{{offer.id}}">
+                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong> {{ offer.user.first_name }} {{offer.item}}</div>
             </a>
           {% endif %}
-        {% endfor %}
-        <div class="modal fade" id="vendor1">
+        
+        <div class="modal fade" id="vendor{{offer.id}}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        {% if log_user.is_authenticated %}
+                        
                         <a href="{% url 'purchase' post.id %}" data-toggle="modal" data-target="#edit" data-dismiss="modal">
                           <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         <a href="#" data-toggle="modal" data-target="#edit" data-dismiss="modal">
                           <span class="glyphicon glyphicon-trash"></span>
                         </a>
-                        {% endif %}
+                        
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                     </div>
                     <div class="modal-body">
-                        <p><strong>Offer by: </strong>{{offer.user}}</p>
-                        <p><strong>iftrade: </strong>{{offer.item}}</p>
+                        <p><strong>Offer by: </strong>{{offer.user.first_name}}</p>
+                        <p><strong>Offered Amount: </strong>{{offer.amount}}</p>
+                        <p><strong>Offer Status: </strong>{{offer.confirmed}}</p>
                     </div>
                     <div class="modal-footer">
-                        {% if log_user.is_authenticated %}
                         <a href="#">
                           <span class="glyphicon glyphicon-ok"></span>
                         </a>
@@ -89,11 +89,45 @@
                         <a href="#">
                           <span class="glyphicon glyphicon-remove"></span>
                         </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="tvendor{{offer.id}}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        
+                        <a href="{% url 'purchase' post.id %}" data-toggle="modal" data-target="#edit" data-dismiss="modal">
+                          <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a href="#" data-toggle="modal" data-target="#edit" data-dismiss="modal">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Offer by: </strong>{{offer.user.first_name}}</p>
+                        <p><strong>Offered Item: </strong>{{offer.item}}</p>
+                        <p><strong>Offer Status: </strong>{{offer.confirmed}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#">
+                          <span class="glyphicon glyphicon-ok"></span>
+                        </a>
+
+                        <a href="#">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
 
         <div class="modal fade" id="edit">
             <div class="modal-dialog">
@@ -103,5 +137,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </section>
 {% endblock %}
