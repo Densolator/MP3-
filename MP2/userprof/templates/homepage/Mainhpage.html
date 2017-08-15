@@ -28,7 +28,7 @@
                     <p><strong>Quantity:</strong> {{post.quantity}}</p>
                     <p><strong>Tags:</strong>
                         {% for tag in post.tags.all %}
-                        <a href="{% url 'searchTg' tag.name %}">{{tag.name}}</a>
+                        <a href="{% url 'searchTg' tag.slug %}">{{tag.name}}</a>
                         {% endfor %}
                     </p>
 <!--                     updated-->

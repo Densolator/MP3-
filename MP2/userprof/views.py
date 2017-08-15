@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.template.defaultfilters import slugify
 
 #updated
 def index(request):
@@ -110,7 +111,7 @@ def Register(request):
 #updated
 def post_detail(request, post_num):
     sPost = get_object_or_404(Post,id=post_num)
-    return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user})
+    return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition)})
 
 
 
@@ -153,7 +154,7 @@ def allPaginate(request, obj, page_num):
 def allQuery(request, query, all_post):
     all_post = all_post.filter(
             Q(item_name__icontains=query) |
-            Q(tags__name__icontains=query) |
+            Q(tags__slug__icontains=query) |
             Q(post_type__icontains=query) |
             Q(post_condition__icontains=query)
         ).distinct()
