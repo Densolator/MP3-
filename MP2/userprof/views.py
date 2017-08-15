@@ -11,7 +11,7 @@ from .forms import RegisterForm, purchaseOfferForm, tradeOfferForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.template.defaultfilters import slugify
 
 #updated
@@ -121,6 +121,20 @@ class editPurchaseOffer(UpdateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+class deleteOffer(DeleteView):
+    model = Offers
+
+    def get_object(self, queryset=None):
+        obj = Offers.objects.get(id=self.kwargs['offers_id'])
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(deleteOffer, self).get_context_data(**kwargs)
+        context["log_user"] = self.request.user.id
+        return context
+
+    def get_success_url(self):
+        return reverse( 'postdet', kwargs={'post_num': self.object.post_id})
 
 class createTradeOffer(CreateView):
     form_class = tradeOfferForm

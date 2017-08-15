@@ -44,11 +44,14 @@ urlpatterns = [
     url(r'^createpost/', views.createPost.as_view(success_url = "/"), name='createpost', ),
 
     #/post/[postid]/addoffer/purchase
-    url(r'^post/(?P<post_num>[0-9]+)/addoffer/purchase/$',views.createPurchaseOffer.as_view(success_url = "/"), name='purchase'), #updated
+    url(r'^post/(?P<post_num>[0-9]+)/addoffer/purchase/$',views.createPurchaseOffer.as_view(success_url = "/"), name='purchase'),
     #/post/[postid]/addoffer/trade
-    url(r'^post/(?P<post_num>[0-9]+)/addoffer/trade/$', views.createTradeOffer.as_view(success_url = "/"), name='trade'), #updated
+    url(r'^post/(?P<post_num>[0-9]+)/addoffer/trade/$', views.createTradeOffer.as_view(success_url = "/"), name='trade'),
+
     #/post/[postid]/editoffer/purchase/[offers-id]
-    url(r'^post/(?P<post_num>[0-9]+)/editoffer/purchase/(?P<offers_id>[0-9]+)$',views.editPurchaseOffer.as_view(success_url = "/"), name='editpurchase'), #updated
+    url(r'^post/(?P<post_num>[0-9]+)/editoffer/purchase/(?P<offers_id>[0-9]+)$',views.editPurchaseOffer.as_view(success_url = "/"), name='editpurchase'),
     #/post/[postid]/editoffer/purchase/[offers-id]
-    url(r'^post/(?P<post_num>[0-9]+)/editoffer/trade/(?P<offers_id>[0-9]+)$',views.editTradeOffer.as_view(success_url = "/"), name='edittrade'), #updated
+    url(r'^post/(?P<post_num>[0-9]+)/editoffer/trade/(?P<offers_id>[0-9]+)$',views.editTradeOffer.as_view(success_url = "/"), name='edittrade'),
+
+    url(r'^post/(?P<post_num>[0-9]+)/deleteoffer/(?P<offers_id>[0-9]+)$',views.deleteOffer.as_view(success_url = "/"), name='deleteoffer'),
 ]
