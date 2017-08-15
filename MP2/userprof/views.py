@@ -20,7 +20,8 @@ def index(request):
     all_post = Post.objects.all().order_by('-id') #updated
 
     context = allPaginate(request, all_post, 10)
-
+    context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
+    
     query = request.GET.get("q") #updated
 
     if query: #updated
@@ -28,6 +29,7 @@ def index(request):
         posts = all_post
         context['posts'] = posts
         context['query'] = query
+        context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
         return render(request, 'homepage/Mainhpage.html', context)
 
     return render(request, 'homepage/Mainhpage.html', context)#updated
