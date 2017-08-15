@@ -71,6 +71,14 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="modal fade" id="postform">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                            </div>
+                        </div>
+                    </div>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown" style="visibility:{% block pageno %} visible {% endblock %}">
@@ -106,7 +114,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{log_user.first_name}} <span class="caret"></span></a>
 <!--                                updated-->
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'createpost' %}">Create a Post</a></li>
+                                <li><a href="{% url 'createpost' %}" data-toggle="modal" data-target="#postform">Create a Post</a></li>
 <!--                                updated-->
                                 {% if log_user.is_authenticated  %}
                                 <li><a href="{% url 'user' log_user.id %}">My Profile</a></li>

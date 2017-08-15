@@ -7,6 +7,24 @@
         <h3>Search results for: {{query}}</h3>
     </div>
 {% endif %}
+
+{% if error %}
+    <div class="container">
+        <div class="alert alert-warning alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Warning!</strong> {{error}}
+        </div>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="container">
+        <div class="alert alert-success alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Logout Successful!</strong> {{success}}
+        </div>
+    </div>
+{% endif %}
 <!--                     updated-->
 <section class="post_section">
 
@@ -28,7 +46,7 @@
                     <p><strong>Quantity:</strong> {{post.quantity}}</p>
                     <p><strong>Tags:</strong>
                         {% for tag in post.tags.all %}
-                        <a href="{% url 'searchTg' tag.name %}">{{tag.name}}</a>
+                        <a href="{% url 'searchTg' tag.slug %}">{{tag.name}}</a>
                         {% endfor %}
                     </p>
 <!--                     updated-->

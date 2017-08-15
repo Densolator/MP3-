@@ -15,16 +15,16 @@ urlpatterns = [
     url(r'^search_results/$', views.index, name='search'),
 
     #/search_results/[query]/paginate_by=[numpage]/
-    url(r'^search_results/(?P<query>\w+)/paginate_by=(?P<page_num>[0-9]+)/$', views.qPaginate, name='qPage'), #updated
+    url(r'^search_results/(?P<query>[-\w]+)/paginate_by=(?P<page_num>[0-9]+)/$', views.qPaginate, name='qPage'), #updated
 
     #/search_by_tag/[tag_name]
-    url(r'^search_by_tag/(?P<tag_name>\w+)/$', views.TCTSearch, name='searchTg'),
+    url(r'^search_by_tag/(?P<tag_name>[-\w]+)/$', views.TCTSearch, name='searchTg'),
 
     #/search_by_condtion/[condtion]
-    url(r'^search_by_condtion/(?P<tag_name>\w+)$', views.TCTSearch, name='searchC'),
+    url(r'^search_by_condtion/(?P<tag_name>[-\w]+)$', views.TCTSearch, name='searchC'),
 
     #/search_by_type/[type]
-    url(r'^search_by_type/(?P<tag_name>\w+)$', views.TCTSearch, name='searchTy'),
+    url(r'^search_by_type/(?P<tag_name>[-\w]+)$', views.TCTSearch, name='searchTy'),
 
     #/users/[userid]/
     url(r'^users/(?P<user_num>[0-9]+)/$', views.user, name='user'),
