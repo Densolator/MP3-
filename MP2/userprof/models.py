@@ -46,9 +46,10 @@ class Post(models.Model):
 
 
 class Offers(models.Model):
-    post = models.OneToOneField(Post, on_delete = models.CASCADE)
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     ifPurchase = models.BooleanField(default = True)
     amount = models.PositiveIntegerField(default = 0)
-    item = models.CharField(max_length = 5)
+    item = models.ForeignKey(Post, on_delete=models.CASCADE, related_name = 'offered_item', null=True, blank=True)
     confirmed = models.BooleanField(default = False)
+    reason = models.CharField(max_length = 500, blank=True)
