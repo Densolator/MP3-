@@ -66,10 +66,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         {% if log_user.is_authenticated %}
-                        <a href="{% url 'edittrade' post.id %}" data-toggle="modal" data-target="#edit" data-dismiss="modal">
+                        <a href="{% url 'purchase' post.id %}" data-toggle="modal" data-target="#edit" data-dismiss="modal">
                           <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a href="{% url 'deleteoffer' %}" data-toggle="modal" data-target="#edit" data-dismiss="modal">
+                        <a href="#" data-toggle="modal" data-target="#edit" data-dismiss="modal">
                           <span class="glyphicon glyphicon-trash"></span>
                         </a>
                         {% endif %}
