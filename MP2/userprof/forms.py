@@ -22,13 +22,21 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields =['item_name', 'quantity', 'thumbnail', 'tags']
-        
+
 class purchaseOfferForm(forms.ModelForm):
     class Meta:
         model = Offers
         fields = ['amount',]
-        
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(purchaseOfferForm, self).__init__(*args, **kwargs)
+
 class tradeOfferForm(forms.ModelForm):
     class Meta:
         model = Offers
         fields = ['item',]
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(tradeOfferForm, self).__init__(*args, **kwargs)

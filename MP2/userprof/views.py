@@ -20,8 +20,9 @@ def index(request):
     all_post = Post.objects.all().order_by('-id') #updated
 
     context = allPaginate(request, all_post, 10)
-    context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
-    
+    if request.user.is_authenticated():
+        context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
+
     query = request.GET.get("q") #updated
 
     if query: #updated
@@ -72,7 +73,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     posts = Post.objects.all().order_by('-id')
-    
+
     context = allPaginate(request, posts, 10)
     context['success'] = 'Account was successfully Logged out'
     return render(request, 'homepage/Mainhpage.html', context)
@@ -88,7 +89,7 @@ class createPost(CreateView):
 class createPurchaseOffer(CreateView):
     form_class = purchaseOfferForm
     template_name = 'userprof/offers_form.html'
-    
+
     def form_valid(self,form):
         form.instance.user = self.request.user
         form.instance.post = get_object_or_404(Post, pk = self.kwargs['post_num'])
@@ -98,6 +99,23 @@ class createPurchaseOffer(CreateView):
         context = super(createPurchaseOffer, self).get_context_data(**kwargs)
         context['log_user'] = self.request.user
         return context
+
+class editPurchaseOffer(UpdateView):
+    form_class = purchaseOfferForm
+    template_name = 'userprof/offers_form.html'
+
+    def get_object(self, queryset = None):
+        obj = Offers.objects.get(id=self.kwargs['offers_id'])
+        return obj
+    def get_context_data(self, **kwargs):
+        context = super(editPurchaseOffer, self).get_context_data(**kwargs)
+        context['log_user'] = self.request.user
+        context['offers'] = Offers.objects.filter(post__op=self.request.user).order_by('-id')
+        return context
+    def get_form_kwargs(self):
+        kwargs = super(editPurchaseOffer, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class createTradeOffer(CreateView):
@@ -113,8 +131,25 @@ class createTradeOffer(CreateView):
         context = super(createTradeOffer, self).get_context_data(**kwargs)
         context['log_user'] = self.request.user
         return context
-    
-    
+
+class editTradeOffer(UpdateView):
+    form_class = tradeOfferForm
+    template_name = 'userprof/offers_form.html'
+
+    def get_object(self, queryset = None):
+        obj = Offers.objects.get(id=self.kwargs['offers_id'])
+        return obj
+    def get_context_data(self, **kwargs):
+        context = super(editTradeOffer, self).get_context_data(**kwargs)
+        context['log_user'] = self.request.user
+        context['offers'] = Offers.objects.filter(post__op=self.request.user).order_by('-id')
+        return context
+    def get_form_kwargs(self):
+        kwargs = super(editTradeOffer, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+
 
 #update
 def Register(request):
@@ -137,8 +172,12 @@ def Register(request):
 
 #updated
 def post_detail(request, post_num):
+
     sPost = get_object_or_404(Post,id=post_num)
-    return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition)})
+    if request.user.is_authenticated():
+        return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition), 'offers': Offers.objects.filter(post__op=request.user).order_by('-id') })
+    else:
+        return render(request, 'homepage/post_detail.html', {'post' : sPost, 'log_user': request.user , 'post_condition' : slugify(sPost.post_condition)})
 
 
 
@@ -148,6 +187,8 @@ def indexPaginate(request, page_num):
     all_post = Post.objects.all().order_by('-id') #updated
 
     context = allPaginate(request, all_post, page_num)
+    if request.user.is_authenticated():
+        context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
 
     return render(request, 'homepage/Mainhpage.html', context)
 
@@ -175,6 +216,8 @@ def allPaginate(request, obj, page_num):
     context = {
         'posts': posts, 'page': page, 'log_user': request.user
     }
+    if request.user.is_authenticated():
+        context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
     return context
 
 

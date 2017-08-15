@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+
 from taggit.managers import TaggableManager
 
 class profile(models.Model):
@@ -37,11 +37,9 @@ class Post(models.Model):
         ('Used', 'Used'),
         ('Brand New', 'Brand New'),
     )
-    post_condition = models.CharField(max_length = 20, choices = POST_CONDITION_CHOICES, default = 'Brand New')
+    post_condition = models.CharField(max_length = 20, choices = POST_CONDITION_CHOICES, default = 'BNEW')
     academic_subject = models.CharField(max_length = 7, blank = True)
     tags = TaggableManager()
-    type_slug = slugify(post_type)
-    condition_slug = slugify(post_condition)
 
     def __str__(self):
         return self.item_name
