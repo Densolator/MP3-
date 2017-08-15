@@ -25,7 +25,7 @@
                 {% endfor %}
                 </p>
             </div>
-            
+
         </div>
         {% if log_user.is_authenticated %}
             <a href="{% url 'purchase' post.id %}" class="abut" data-toggle="modal" data-target="#edit">Purchase Offer</a>
@@ -44,20 +44,23 @@
             </div>
         </div>
     </div>
-    
+
     <div class="item_offer" >
         <div class="offer_head" >
             <p>Offers</p>
         </div>
- <!--        loop for all offers in this post-->       
-        <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#vendor1">
-            <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong>{vendor here} {click for more details of offer}</div>
-        </a>
-<!--        loop for all offers in this post-->
-        <a href ="#">
-            <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong>{vendor here}</div>
-        </a>
-        
+ <!--        loop for all offers in this post-->
+        {% for offer in offers %}
+          {% if offer.ifPurchase %}
+            <a href ="#">
+                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong>{{ offer.user }}</div>
+            </a>
+          {% else %}
+            <a href ="#" style="text-decoration: none; color: black" data-toggle="modal" data-target="#vendor1">
+                <div class="item" style="margin-bottom: 3%;"><strong>Offer by: </strong> {{ offer.user }} {{offer.item}}</div>
+            </a>
+          {% endif %}
+        {% endfor %}
         <div class="modal fade" id="vendor1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -74,16 +77,16 @@
 
                     </div>
                     <div class="modal-body">
-                        <p><strong>Offer by: </strong>{vendor here}</p>
-                        <p><strong>ifpurchase: </strong>{amount of money}</p>
-                        <p><strong>iftrade: </strong>{what item}</p>
+                        <p><strong>Offer by: </strong>{{offer.user}}</p>
+                        <p><strong>ifpurchase: </strong>{{offer.amount}}</p>
+                        <p><strong>iftrade: </strong>{offer.item}</p>
                     </div>
                     <div class="modal-footer">
                         {% if log_user.is_authenticated %}
                         <a href="#">
                           <span class="glyphicon glyphicon-ok"></span>
                         </a>
-                        
+
                         <a href="#">
                           <span class="glyphicon glyphicon-remove"></span>
                         </a>
@@ -92,7 +95,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="edit">
             <div class="modal-dialog">
                 <div class="modal-content">
