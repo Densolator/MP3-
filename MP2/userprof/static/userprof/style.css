@@ -22,8 +22,8 @@ a, p, h3{
     width: 30%;
     margin: 0 auto; 
     margin-top: 3%; 
-    margin-bottom: 3%
-    height: inherit
+    margin-bottom: 3%;
+    height: inherit;
 
 }
 /*updated*/
@@ -59,7 +59,6 @@ a, p, h3{
 }
 
 .item {
-
     background-color:#aec5f9;
 }
 
@@ -81,5 +80,15 @@ img {
 #userlog .form-group {
     margin: 5px;
 }
-
+a.abut {
+    color: snow;
+    margin: 7%;
+    padding: 2%;
+    border-radius: 10px; 
+    text-decoration: none;
+    border: 3px solid #162070;
+}
+.abut:hover {
+    background-color: #162070;
+}
 .modal.custom .modal-dialog .modal-body
