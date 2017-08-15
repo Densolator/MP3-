@@ -7,7 +7,7 @@ from .models import Offers
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import views as auth_views
-from .forms import RegisterForm
+from .forms import RegisterForm, purchaseOfferForm, tradeOfferForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -20,7 +20,8 @@ def index(request):
     all_post = Post.objects.all().order_by('-id') #updated
 
     context = allPaginate(request, all_post, 10)
-
+    context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
+    
     query = request.GET.get("q") #updated
 
     if query: #updated
@@ -28,6 +29,7 @@ def index(request):
         posts = all_post
         context['posts'] = posts
         context['query'] = query
+        context['offers'] = Offers.objects.filter(post__op=request.user).order_by('-id')
         return render(request, 'homepage/Mainhpage.html', context)
 
     return render(request, 'homepage/Mainhpage.html', context)#updated
@@ -63,13 +65,18 @@ def login_user(request):
                 return render(request, 'homepage/Mainhpage.html')
         else:
             context = allPaginate(request, posts, 10)
+            context['error'] = 'Invalid Login'
             return render(request, 'homepage/Mainhpage.html', context)
 
 
 def logout_user(request):
     logout(request)
+    posts = Post.objects.all().order_by('-id')
+    
+    context = allPaginate(request, posts, 10)
+    context['success'] = 'Account was successfully Logged out'
+    return render(request, 'homepage/Mainhpage.html', context)
 
-    return render(request, 'homepage/logoutpage.html')
 class createPost(CreateView):
     model = Post
     fields = ['item_name', 'thumbnail', 'quantity', 'post_condition', 'post_type', 'tags']
@@ -78,16 +85,36 @@ class createPost(CreateView):
         form.instance.op = self.request.user
         return super(createPost,self).form_valid(form)
 
-class createOffer(CreateView):
-    model = Offers
-    fields = ['ifPurchase', 'amount', 'item',]
+class createPurchaseOffer(CreateView):
+    form_class = purchaseOfferForm
+    template_name = 'userprof/offers_form.html'
+    
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        form.instance.post = get_object_or_404(Post, pk = self.kwargs['post_num'])
+        form.instance.ifPurchase = True
+        return super(createPurchaseOffer, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(createPurchaseOffer, self).get_context_data(**kwargs)
+        context['log_user'] = self.request.user
+        return context
+
+
+class createTradeOffer(CreateView):
+    form_class = tradeOfferForm
+    template_name = 'userprof/offers_form.html'
 
     def form_valid(self,form):
         form.instance.user = self.request.user
-        return super(createOffer, self).form_valid(form)
-
-
-
+        form.instance.post = get_object_or_404(Post, pk = self.kwargs['post_num'])
+        form.instance.ifPurchase = False
+        return super(createTradeOffer, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(createTradeOffer, self).get_context_data(**kwargs)
+        context['log_user'] = self.request.user
+        return context
+    
+    
 
 #update
 def Register(request):

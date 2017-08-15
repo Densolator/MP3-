@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from . models import Post
+from . models import Post, Offers
 
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length = 30, required = True, help_text = 'Required.')
@@ -22,3 +22,13 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields =['item_name', 'quantity', 'thumbnail', 'tags']
+        
+class purchaseOfferForm(forms.ModelForm):
+    class Meta:
+        model = Offers
+        fields = ['amount',]
+        
+class tradeOfferForm(forms.ModelForm):
+    class Meta:
+        model = Offers
+        fields = ['item',]

@@ -32,6 +32,11 @@ urlpatterns = [
     #/post/[postid]/
     url(r'^post/(?P<post_num>[0-9]+)/$', views.post_detail, name='postdet'), #updated
 
+     #CREATE OFFER
+    url(r'^post/(?P<post_num>[0-9]+)/addoffer/purchase/$',views.createPurchaseOffer.as_view(success_url = "/"), name='purchase'), #updated
+     #CREATE OFFER
+    url(r'^post/(?P<post_num>[0-9]+)/addoffer/trade/$', views.createTradeOffer.as_view(success_url = "/"), name='trade'), #updated
+    
     #/register/
     url(r'^register/$', views.Register, name='register'),
 

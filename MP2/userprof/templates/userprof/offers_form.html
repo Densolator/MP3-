@@ -1,4 +1,5 @@
 {% extends 'homepage/skeleton.html' %}
+<<<<<<< HEAD
 {% block title %} Create a post {% endblock %}
 {% block login %} class="active" {% endblock %}
 {% block body %}
@@ -18,3 +19,22 @@
 
     <a href="/" class="retAnchor">Back To Home Page</a>
 {% endblock %}
+=======
+
+{% block body%}
+    <div class="centerdiv">
+        <div class="innerdiv">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include 'homepage/form-template.html' %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">Post</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+{% endblock %}
+>>>>>>> 1075ec2d9f5bed58beab9a84d2e1cb0c02b9ba36
