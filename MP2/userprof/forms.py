@@ -40,3 +40,4 @@ class tradeOfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(tradeOfferForm, self).__init__(*args, **kwargs)
+        self.fields['item'].queryset = Post.objects.filter(user_id__id=self.user.id)

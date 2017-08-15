@@ -99,6 +99,10 @@ class createPurchaseOffer(CreateView):
         context = super(createPurchaseOffer, self).get_context_data(**kwargs)
         context['log_user'] = self.request.user
         return context
+    def get_form_kwargs(self):
+        kwargs = super(createPurchaseOffer, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 class editPurchaseOffer(UpdateView):
     form_class = purchaseOfferForm
@@ -131,6 +135,10 @@ class createTradeOffer(CreateView):
         context = super(createTradeOffer, self).get_context_data(**kwargs)
         context['log_user'] = self.request.user
         return context
+    def get_form_kwargs(self):
+        kwargs = super(createTradeOffer, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 class editTradeOffer(UpdateView):
     form_class = tradeOfferForm
